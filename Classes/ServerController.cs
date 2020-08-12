@@ -56,6 +56,7 @@ namespace SalonManager
             WSSServer.AddWebSocketService<CommunicationServerBehavior>("/communication");
             WSSServer.AddWebSocketService<SalonManager.Classes.WebSocketServerControllers.RawPrinterDirect>("/raw-printers");
             WSSServer.AddWebSocketService<SalonManager.Classes.WebSocketServerControllers.Communication>("/comm");
+            WSSServer.AddWebSocketService<SalonManager.Classes.WebSocketServerControllers.Utility>("/utility");
 
 
             try

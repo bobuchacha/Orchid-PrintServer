@@ -11,13 +11,9 @@ namespace SalonManager
 {
     class URISchemaHelper
     {
-#if (DEBUG)
-        public const string UriScheme = "smtestserver";
+
+        public const string UriScheme = "orchidprint";
         const string FriendlyName = "SalonManager Print Server";
-#else
-        public const string UriScheme = "smprintserver";
-        const string FriendlyName = "SalonManager Print Server";
-#endif
 
         public static void InitializeURISchema()
         {
