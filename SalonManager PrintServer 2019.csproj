@@ -30,7 +30,7 @@
     <SuiteName>Point of Sale</SuiteName>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>index.htm</WebPage>
-    <ApplicationRevision>5</ApplicationRevision>
+    <ApplicationRevision>6</ApplicationRevision>
     <ApplicationVersion>3.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -62,7 +62,7 @@
     <StartupObject>SalonManager.Program</StartupObject>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Icon3.ico</ApplicationIcon>
+    <ApplicationIcon>Icon2.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup />
   <PropertyGroup>
@@ -222,7 +222,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="SalonManager PrintServer 2019_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Forms\FormAbout.resx">
@@ -247,6 +246,7 @@
   <ItemGroup>
     <Content Include="Icon2.ico" />
     <Content Include="Icon3.ico" />
+    <Content Include="printcloud.ico" />
     <Content Include="PrintServer.ico" />
   </ItemGroup>
   <ItemGroup>

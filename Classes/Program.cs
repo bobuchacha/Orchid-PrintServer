@@ -28,6 +28,8 @@ namespace SalonManager
         // constants
         private const string CHROME_x86_PATH = "c:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe";
         private const string CHROME_x64_PATH = "c:\\Program Files\\Google\\Chrome\\Application\\chrome.exe";
+        public const string LOG_FILE = "log.txt";
+        public const Boolean DELETE_LOG_FILE_ON_START = true;
 
         // private variables
         private static string   _interprocessID;
@@ -111,6 +113,12 @@ namespace SalonManager
             * This task will act like a Mutex server to listen to any incoming 
             * arguments when user launch the app again with argument. 
             */
+
+            // delete log file if needed
+            if (DELETE_LOG_FILE_ON_START)
+            {
+                File.Delete(LOG_FILE);
+            }
 
             Task.Run(() =>
             {

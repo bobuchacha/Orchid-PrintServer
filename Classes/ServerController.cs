@@ -30,6 +30,23 @@ namespace SalonManager
         static WebSocketServer WSSServer;
         static HttpServer MainServer;
 
+        public static void LogInfo(string str)
+        {
+            WSSServer.Log.Info(str);
+        }
+        public static void LogDebug(string str)
+        {
+            WSSServer.Log.Debug(str);
+        }
+        public static void LogWarn(string str)
+        {
+            WSSServer.Log.Warn(str);
+        }
+        public static void LogError(string str)
+        {
+            WSSServer.Log.Error(str);
+        }
+
         public static void Initialize()
         {
             Printer = new SMRawPrinterHelper();
@@ -38,9 +55,11 @@ namespace SalonManager
 
         public static void StartPrintServer()
         {
+
             StartRawPrinterService();
             StartCOMPortDrawerService();
 
+            
             // start Web Socket print Server in a new thread
             //PrintServerThread = new Thread(StartWebSocketServer);
             //PrintServerThread.Start();
@@ -52,13 +71,17 @@ namespace SalonManager
             //}
 
             WSSServer = new WebSocketServer(IPAddress.Any, Convert.ToInt16(Config.PrintServerPort));
+            WSSServer.Log.File = "log.txt";
+            WSSServer.Log.Level = LogLevel.Debug;
+
             WSSServer.AddWebSocketService<SalonManager.Classes.WebSocketServerControllers.Printing>("/");
             WSSServer.AddWebSocketService<CommunicationServerBehavior>("/communication");
             WSSServer.AddWebSocketService<SalonManager.Classes.WebSocketServerControllers.RawPrinterDirect>("/raw-printers");
             WSSServer.AddWebSocketService<SalonManager.Classes.WebSocketServerControllers.Communication>("/comm");
             WSSServer.AddWebSocketService<SalonManager.Classes.WebSocketServerControllers.Utility>("/utility");
-
-
+            WSSServer.Log.Debug("Server started");
+            
+            
             try
             {
                 WSSServer.Start();

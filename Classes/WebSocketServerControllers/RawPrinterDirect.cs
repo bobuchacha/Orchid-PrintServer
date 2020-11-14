@@ -42,6 +42,7 @@ namespace SalonManager.Classes.WebSocketServerControllers
             newESClient.clientID = SessionID;
             newESClient.WebSocket = ws;
             WSClientCollection.Add(machineID, newESClient);
+            ServerController.LogDebug("New client Added. Client ID=" + machineID + ". Session ID=" + SessionID);
         }
 
 
@@ -103,22 +104,24 @@ namespace SalonManager.Classes.WebSocketServerControllers
         {
             _printerName = getPrinterName();
             this.Send("Welcome to Salon Orchid Raw Printer Assistant. Your printer name is " + _printerName);
+            ServerController.LogDebug("New RawPrinterDirect established to " + _printerName);
 
         }
         protected override void OnClose(CloseEventArgs e)
         {
-          
+            ServerController.LogDebug("Session closed. Printer name was " + _printerName);
         }
 
         protected override void OnMessage(MessageEventArgs e)
         {
             bool opened = ServerController.Printer.OpenPrint(_printerName);
-
             if (!opened)
             {
+                ServerController.LogWarn("Print failed. Printer " + _printerName);
                 this.Send("failed");
                 return;
             }
+
 
             // send data to printer
             if (e.IsBinary)
@@ -129,7 +132,7 @@ namespace SalonManager.Classes.WebSocketServerControllers
             else
             {
                 Debug.WriteLine("Sending text to printer " + _printerName);
-             
+            
                 bool printed = ServerController.Printer.SendStringToPrinter(_printerName, SMCommand.ESC_INIT + e.Data);
                 
                
@@ -137,6 +140,7 @@ namespace SalonManager.Classes.WebSocketServerControllers
 
             ServerController.Printer.ClosePrint();
             this.Send("Success");
+            ServerController.LogInfo("Print successfully. Printer " + _printerName);
         }
 
 
