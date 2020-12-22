@@ -114,6 +114,24 @@ namespace SalonManager.Classes.WebSocketServerControllers
 
         protected override void OnMessage(MessageEventArgs e)
         {
+
+            if (_printerName == "DEBUG")
+            {
+                string message;
+                if (e.IsBinary)
+                {
+                    message = "RAW DATA";
+                }else
+                {
+                    if (e.Data.Length <= 30) message = e.Data;
+                    else message = e.Data.Substring(0, 30);
+                }
+                
+                ServerController.LogInfo("Print Command Received: \n" + message);
+                this.Send("Success");
+                return;
+            }
+
             bool opened = ServerController.Printer.OpenPrint(_printerName);
             if (!opened)
             {

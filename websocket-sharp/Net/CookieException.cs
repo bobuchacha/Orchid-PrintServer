@@ -46,7 +46,7 @@ namespace WebSocketSharp.Net
   /// The exception that is thrown when a <see cref="Cookie"/> gets an error.
   /// </summary>
   [Serializable]
-  public class CookieException : FormatException
+  public class CookieException : FormatException, ISerializable
   {
     #region Internal Constructors
 
@@ -128,39 +128,38 @@ namespace WebSocketSharp.Net
       base.GetObjectData (serializationInfo, streamingContext);
     }
 
-        #endregion
+    #endregion
 
-        #region Explicit Interface Implementation
+    #region Explicit Interface Implementation
 
-        /// <summary>
-        /// Populates the specified <see cref="SerializationInfo"/> instance with
-        /// the data needed to serialize the current instance.
-        /// </summary>
-        /// <param name="serializationInfo">
-        /// A <see cref="SerializationInfo"/> that holds the serialized object data.
-        /// </param>
-        /// <param name="streamingContext">
-        /// A <see cref="StreamingContext"/> that specifies the destination for
-        /// the serialization.
-        /// </param>
-        /// <exception cref="ArgumentNullException">
-        /// <paramref name="serializationInfo"/> is <see langword="null"/>.
-        /// </exception>
-        [
-          SecurityPermission(
-            SecurityAction.LinkDemand,
-            Flags = SecurityPermissionFlag.SerializationFormatter,
-            SerializationFormatter = true
-          )
-        ]
-        //void ISerialization.GetObjectData (
-        //  SerializationInfo serializationInfo, StreamingContext streamingContext
-        //)
-        //{
-        //  base.GetObjectData (serializationInfo, streamingContext);
-        // }
+    /// <summary>
+    /// Populates the specified <see cref="SerializationInfo"/> instance with
+    /// the data needed to serialize the current instance.
+    /// </summary>
+    /// <param name="serializationInfo">
+    /// A <see cref="SerializationInfo"/> that holds the serialized object data.
+    /// </param>
+    /// <param name="streamingContext">
+    /// A <see cref="StreamingContext"/> that specifies the destination for
+    /// the serialization.
+    /// </param>
+    /// <exception cref="ArgumentNullException">
+    /// <paramref name="serializationInfo"/> is <see langword="null"/>.
+    /// </exception>
+    [
+      SecurityPermission (
+        SecurityAction.LinkDemand,
+        Flags = SecurityPermissionFlag.SerializationFormatter,
+        SerializationFormatter = true
+      )
+    ]
+    void ISerializable.GetObjectData (
+      SerializationInfo serializationInfo, StreamingContext streamingContext
+    )
+    {
+      base.GetObjectData (serializationInfo, streamingContext);
+    }
 
-        void GetObjectData() { }
     #endregion
   }
 }

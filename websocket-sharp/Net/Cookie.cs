@@ -96,6 +96,7 @@ namespace WebSocketSharp.Net
     private string                 _port;
     private int[]                  _ports;
     private static readonly char[] _reservedCharsForValue;
+    private string                 _sameSite;
     private bool                   _secure;
     private DateTime               _timeStamp;
     private string                 _value;
@@ -347,6 +348,16 @@ namespace WebSocketSharp.Net
     internal int[] Ports {
       get {
         return _ports ?? _emptyPorts;
+      }
+    }
+
+    internal string SameSite {
+      get {
+        return _sameSite;
+      }
+
+      set {
+        _sameSite = value;
       }
     }
 
@@ -768,6 +779,9 @@ namespace WebSocketSharp.Net
       if (!_domain.IsNullOrEmpty ())
         buff.AppendFormat ("; Domain={0}", _domain);
 
+      if (!_sameSite.IsNullOrEmpty ())
+        buff.AppendFormat ("; SameSite={0}", _sameSite);
+
       if (_secure)
         buff.Append ("; Secure");
 
@@ -856,6 +870,16 @@ namespace WebSocketSharp.Net
              && _version == cookie._version;
     }
 
+    internal bool EqualsWithoutValueAndVersion (Cookie cookie)
+    {
+      var caseSensitive = StringComparison.InvariantCulture;
+      var caseInsensitive = StringComparison.InvariantCultureIgnoreCase;
+
+      return _name.Equals (cookie._name, caseInsensitive)
+             && _path.Equals (cookie._path, caseSensitive)
+             && _domain.Equals (cookie._domain, caseInsensitive);
+    }
+
     internal string ToRequestString (Uri uri)
     {
       if (_name.Length == 0)
@@ -904,6 +928,22 @@ namespace WebSocketSharp.Net
              : _version == 0
                ? toResponseStringVersion0 ()
                : toResponseStringVersion1 ();
+    }
+
+    internal static bool TryCreate (
+      string name, string value, out Cookie result
+    )
+    {
+      result = null;
+
+      try {
+        result = new Cookie (name, value);
+      }
+      catch {
+        return false;
+      }
+
+      return true;
     }
 
     #endregion

@@ -14,7 +14,7 @@
     <Deterministic>true</Deterministic>
     <TargetFrameworkProfile />
     <IsWebBootstrapper>true</IsWebBootstrapper>
-    <PublishUrl>V:\salonmanager.us\SMServer\</PublishUrl>
+    <PublishUrl>Y:\wwwroot\salonmanager.us\SMServer\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Web</InstallFrom>
     <UpdateEnabled>true</UpdateEnabled>
@@ -30,7 +30,7 @@
     <SuiteName>Point of Sale</SuiteName>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>index.htm</WebPage>
-    <ApplicationRevision>6</ApplicationRevision>
+    <ApplicationRevision>10</ApplicationRevision>
     <ApplicationVersion>3.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -62,7 +62,7 @@
     <StartupObject>SalonManager.Program</StartupObject>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Icon2.ico</ApplicationIcon>
+    <ApplicationIcon>print %281%29.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup />
   <PropertyGroup>
@@ -132,9 +132,7 @@
     <Compile Include="Forms\FormUpgradePrompt.Designer.cs">
       <DependentUpon>FormUpgradePrompt.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\FormUpgradeStatus.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="Forms\FormUpgradeStatus.cs" />
     <Compile Include="Forms\FormUpgradeStatus.Designer.cs">
       <DependentUpon>FormUpgradeStatus.cs</DependentUpon>
     </Compile>
@@ -246,6 +244,7 @@
   <ItemGroup>
     <Content Include="Icon2.ico" />
     <Content Include="Icon3.ico" />
+    <Content Include="print %281%29.ico" />
     <Content Include="printcloud.ico" />
     <Content Include="PrintServer.ico" />
   </ItemGroup>

@@ -74,14 +74,16 @@ namespace SalonManager
             WSSServer.Log.File = "log.txt";
             WSSServer.Log.Level = LogLevel.Debug;
 
-            WSSServer.AddWebSocketService<SalonManager.Classes.WebSocketServerControllers.Printing>("/");
-            WSSServer.AddWebSocketService<CommunicationServerBehavior>("/communication");
-            WSSServer.AddWebSocketService<SalonManager.Classes.WebSocketServerControllers.RawPrinterDirect>("/raw-printers");
-            WSSServer.AddWebSocketService<SalonManager.Classes.WebSocketServerControllers.Communication>("/comm");
-            WSSServer.AddWebSocketService<SalonManager.Classes.WebSocketServerControllers.Utility>("/utility");
+            WSSServer.AddWebSocketService<SalonManager.Classes.WebSocketServerControllers.Printing>("/");                       // default, legacy module
+            WSSServer.AddWebSocketService<CommunicationServerBehavior>("/communication");                                       // legacy communication module - acts like a chat server
+            WSSServer.AddWebSocketService<SalonManager.Classes.WebSocketServerControllers.RawPrinterDirect>("/raw-printers");   // access to raw printers using ?m=printername
+            WSSServer.AddWebSocketService<SalonManager.Classes.WebSocketServerControllers.Communication>("/comm");              // another communication
+            WSSServer.AddWebSocketService<SalonManager.Classes.WebSocketServerControllers.Utility>("/utility");                 // utility to access system wise function such as list printers name, etc.
+            
             WSSServer.Log.Debug("Server started");
-            
-            
+
+            WSSServer.KeepClean = false;
+
             try
             {
                 WSSServer.Start();

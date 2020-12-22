@@ -75,6 +75,7 @@
             // 
             // cmdDrawers
             // 
+            this.cmdDrawers.Enabled = false;
             this.cmdDrawers.FormattingEnabled = true;
             this.cmdDrawers.Location = new System.Drawing.Point(129, 190);
             this.cmdDrawers.Name = "cmdDrawers";

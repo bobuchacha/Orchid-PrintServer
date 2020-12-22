@@ -337,7 +337,8 @@ namespace WebSocketSharp.Net
         if (cookie != null)
           ret.add (cookie);
 
-        cookie = new Cookie (name, val);
+        if (!Cookie.TryCreate (name, val, out cookie))
+          continue;
 
         if (ver != 0)
           cookie.Version = ver;
@@ -525,10 +526,21 @@ namespace WebSocketSharp.Net
           continue;
         }
 
+        if (name.Equals ("samesite", caseInsensitive)) {
+          if (cookie == null)
+            continue;
+
+          if (val.Length == 0)
+            continue;
+
+          cookie.SameSite = val.Unquote ();
+          continue;
+        }
+
         if (cookie != null)
           ret.add (cookie);
 
-        cookie = new Cookie (name, val);
+        Cookie.TryCreate (name, val, out cookie);
       }
 
       if (cookie != null)
